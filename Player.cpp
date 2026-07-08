@@ -30,6 +30,10 @@ namespace
 		XMVectorSet(-1,0,0,0),XMVectorSet(1,0,0,0) };
 
 	float TURN_FRAME = 30.0f;//回転にかかるフレーム数
+	float turnStartAngle = 0.0f;//開始角度
+	float turnEndAngle = 0.0f;//終了角度
+	PLAYER_DIRECTION turnEndDirection = PLAYER_DOWN;
+
 }
 
 Player::Player(GameObject* parent)
@@ -65,61 +69,90 @@ void Player::Update()
 	XMVECTOR move = XMVectorSet(0, 0, 0, 0);
 	const float SPEED = 0.1f;
 	float angle = 0.0f;
-	pstate = PLAYER_STATE::PLAYER_IDLE;
+	static float turnFrame = 0.0f;//回転中のフレーム数を管理する変数
+
+	if (pstate != PLAYER_STATE::PLAYER_TURN)
+	{
+		pstate = PLAYER_STATE::PLAYER_IDLE;
+	}
 	PLAYER_DIRECTION olddir = pdirection;//今の向きを入れる
 
+	if (pstate != PLAYER_STATE::PLAYER_TURN)//ターン中はキー入力受け付けない
+	{
+		if (Input::IsKey(DIK_LEFT))
+		{
 
-	if (Input::IsKey(DIK_LEFT))
-	{
-		
-		pdirection = PLAYER_DIRECTION::PLAYER_LEFT;
-		pstate = PLAYER_STATE::PLAYER_WALK;
-		
-	}
-	if (Input::IsKey(DIK_RIGHT))
-	{
-		
-		pdirection = PLAYER_DIRECTION::PLAYER_RIGHT;
-		pstate = PLAYER_STATE::PLAYER_WALK;
-	}
-	if (Input::IsKey(DIK_UP))
-	{
-		
-		pdirection = PLAYER_DIRECTION::PLAYER_UP;
-		pstate = PLAYER_STATE::PLAYER_WALK;
-	}
-	if (Input::IsKey(DIK_DOWN))
-	{
-		
-		pdirection = PLAYER_DIRECTION::PLAYER_DOWN;
-		pstate = PLAYER_STATE::PLAYER_WALK;
-	}
-	if(olddir!= pdirection)
-	{
-		//回転
-		pstate = PLAYER_STATE::PLAYER_TURN;
-	}
-	else if (pstate == PLAYER_STATE::PLAYER_TURN)
-	{
-		//回転処理
-		//angleを30フレーム使って新しいangleに切り替え
-		//古いものからちょっとずつ足してって…
+			pdirection = PLAYER_DIRECTION::PLAYER_LEFT;
+			pstate = PLAYER_STATE::PLAYER_WALK;
 
-		olddir = pdirection;//今の角度
-		pdirection;//目標角度は反対方向…？
+		}
+		if (Input::IsKey(DIK_RIGHT))
+		{
 
-		//IDLE状態に戻す
-		
+			pdirection = PLAYER_DIRECTION::PLAYER_RIGHT;
+			pstate = PLAYER_STATE::PLAYER_WALK;
+		}
+		if (Input::IsKey(DIK_UP))
+		{
+
+			pdirection = PLAYER_DIRECTION::PLAYER_UP;
+			pstate = PLAYER_STATE::PLAYER_WALK;
+		}
+		if (Input::IsKey(DIK_DOWN))
+		{
+
+			pdirection = PLAYER_DIRECTION::PLAYER_DOWN;
+			pstate = PLAYER_STATE::PLAYER_WALK;
+		}
 	}
-	if (pstate != PLAYER_STATE::PLAYER_IDLE)
-	{
-		move = P_MOVE[pdirection];
-		angle = P_ANGLE[pdirection];
-		transform_.rotate_.y = angle;
-	}
-	pos = pos + SPEED * move;
-	XMStoreFloat3(&transform_.position_,pos);
+		if (olddir != pdirection)
+		{
+			//回転
+			pstate = PLAYER_STATE::PLAYER_TURN;
+			turnFrame = 0.0f;
+			turnStartAngle = P_ANGLE[olddir];
+
+			turnEndDirection = pdirection;
+			turnEndAngle = P_ANGLE[turnEndDirection];
+		}
+		 
+		if (pstate == PLAYER_STATE::PLAYER_TURN)
+		{
+			//回転処理
+			//angleを30フレーム使って新しいangleに切り替え
+			//古いものからちょっとずつ足してって…
+
+			turnFrame += 1.0f;
+			float t = turnFrame / TURN_FRAME;//0から1.0
+
+			if (t > 1.0f)
+			{
+				t = 1.0f;//1.0を超えないようにする（保険）
+			}
+			angle = turnStartAngle + (turnEndAngle - turnStartAngle) * t;
+			transform_.rotate_.y = angle;
+
+			//30フレーム経過したら回転終了
+			if (turnFrame >= TURN_FRAME)
+			{
+				pdirection = turnEndDirection;
+				transform_.rotate_.y = angle;
+				pstate = PLAYER_STATE::PLAYER_WALK;
+
+				return;//早期リターン
+			}
+		}
+		else if (pstate != PLAYER_STATE::PLAYER_IDLE)
+		{
+			move = P_MOVE[pdirection];
+			angle = P_ANGLE[pdirection];
+			transform_.rotate_.y = angle;
+		}
+		pos = pos + SPEED * move;
+		XMStoreFloat3(&transform_.position_, pos);
 }
+	
+
 
 void Player::Draw()
 {
@@ -131,7 +164,7 @@ void Player::Draw()
 		Model::SetTransform(hIdleModel_, transform_);
 		Model::Draw(hIdleModel_);
 	}
-	if (pstate == PLAYER_STATE::PLAYER_WALK)
+	else if (pstate == PLAYER_STATE::PLAYER_WALK|| pstate == PLAYER_STATE::PLAYER_TURN)
 	{
 		Model::SetTransform(hWalkModel_, transform_);
 		Model::Draw(hWalkModel_);

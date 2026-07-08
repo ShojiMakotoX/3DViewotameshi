@@ -8,6 +8,9 @@ class Player :
 {
 	int hWalkModel_;//歩きアニメーションのモデルハンドル
 	int hIdleModel_;//待機アニメーションのモデルハンドル
+	/*float startAngle;
+	float targetAngle;
+	float frame = 0;*/
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
