@@ -33,9 +33,21 @@ namespace
 	float turnStartAngle = 0.0f;//ŠJŽnŠp“x
 	float turnEndAngle = 0.0f;//I—¹Šp“x
 	PLAYER_DIRECTION turnEndDirection = PLAYER_DOWN;
-	float diff = 0.0f;//ŠJŽnŠp“x‚©‚çA–Ú•WŠp“x‚Ü‚Å‚Ì‰ñ“]—Êi‰½“x‰ñ“]‚·‚é‚©j
-	float halfangle = 180.0f;
-	float fullangle = 360.0f;
+	float AdujustAngle(float angle)
+	{
+		if (angle>=180.0f)
+		{
+			angle -= 360.0f;
+		}
+		else if (angle<-180.0f)
+		{
+			angle += 360.0f;
+		}
+		return angle;
+	}
+	//float diff = 0.0f;//ŠJŽnŠp“x‚©‚çA–Ú•WŠp“x‚Ü‚Å‚Ì‰ñ“]—Êi‰½“x‰ñ“]‚·‚é‚©j
+	//float halfangle = 180.0f;
+	//float fullangle = 360.0f;
 
 }
 
@@ -114,9 +126,9 @@ void Player::Update()
 			pstate = PLAYER_STATE::PLAYER_TURN;
 			turnFrame = 0.0f;
 			turnStartAngle = P_ANGLE[olddir];
-
+			float diff = AdujustAngle(P_ANGLE[pdirection] - P_ANGLE[olddir]);
 			turnEndDirection = pdirection;
-			turnEndAngle = P_ANGLE[turnEndDirection];
+			turnEndAngle =turnStartAngle+diff;
 		}
 		 
 		if (pstate == PLAYER_STATE::PLAYER_TURN)
@@ -133,16 +145,17 @@ void Player::Update()
 				t = 1.0f;//1.0‚ð’´‚¦‚È‚¢‚æ‚¤‚É‚·‚éi•ÛŒ¯j
 			}
 			//Å’Z•ûŒü‚É‰ñ“]‚·‚é‚æ‚¤‚ÉŠp“x·‚ð•â³B
-			diff = turnEndAngle - turnStartAngle;
-			if (diff > halfangle)
+			
+			/*if (diff > halfangle)
 			{
 				diff -= fullangle;
 			}
 			if (diff < -halfangle)
 			{
 				diff += fullangle;
-			}
-			angle = turnStartAngle + diff * t;//ŠJŽnŠp“x‚©‚ç‰ñ“]—Ê‚ð•ÛŠÇ—¦‚¾‚¯i‚ß‚½Œ»Ý‚ÌŠp“x‚ð‹‚ß‚é
+			}*/
+			
+			angle = turnStartAngle + (turnEndAngle-turnStartAngle)*t;//ŠJŽnŠp“x‚©‚ç‰ñ“]—Ê‚ð•ÛŠÇ—¦‚¾‚¯i‚ß‚½Œ»Ý‚ÌŠp“x‚ð‹‚ß‚é
 			transform_.rotate_.y = angle;
 
 			//30ƒtƒŒ[ƒ€Œo‰ß‚µ‚½‚ç‰ñ“]I—¹
