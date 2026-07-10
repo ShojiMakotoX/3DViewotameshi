@@ -3,6 +3,7 @@
 #include "Engine/Debug.h"
 #include "TestScene.h"
 #include "Engine\\Input.h"
+#include "Ground.h"
 
 namespace
 {
@@ -49,6 +50,9 @@ namespace
 	//float halfangle = 180.0f;
 	//float fullangle = 360.0f;
 
+	std::vector<std::vector<int>>gmap;
+	
+
 }
 
 Player::Player(GameObject* parent)
@@ -62,10 +66,15 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 67, 1.0);
+	transform_.position_ = { 0.0f,0.0f,0.0f };
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
 
+	if (ground_ != nullptr)
+	{
+		gmap = ground_->GetMapData();
+	}
 
 }
 
@@ -176,6 +185,19 @@ void Player::Update()
 		}
 		pos = pos + SPEED * move;
 		XMStoreFloat3(&transform_.position_, pos);
+		XMFLOAT3 wpos = transform_.position_;
+
+		//壁オブジェクトに食い込んでいたら戻す
+		gmap = ground_->GetMapData();//マップを取得
+		int mapX = (int)((wpos.x) + 10.0f) / 2;
+		int mapZ = (int)((10.0f-(wpos.z)) / 2);
+		
+		if (gmap[mapZ][mapX]==1)
+		{
+			pos = pos - SPEED * move;
+			XMStoreFloat3(&transform_.position_, pos);
+		}
+
 }
 	
 

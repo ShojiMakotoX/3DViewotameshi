@@ -1,6 +1,5 @@
 #include "Ground.h"
 #include "Engine\\Model.h"
-#include <vector>
 namespace
 {
 	using std::vector;
@@ -9,26 +8,27 @@ namespace
 	vector<vector<int>>mapData
 	{
 		{1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,1,0,0,0,0,1,1},
-		{1,1,0,1,0,1,1,0,0,1},
-		{1,0,0,0,0,1,0,0,1,1},
-		{1,0,1,1,0,0,0,1,1,1},
-		{1,0,1,1,0,0,1,0,0,1},
-		{1,0,1,0,1,0,1,1,0,1},
-		{1,0,0,0,1,0,0,0,0,1},
-		{1,1,1,0,1,1,1,0,1,1},
-		{1,1,0,0,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,1},
 	};
 
 }
 Ground::Ground(GameObject* parent)
-	:GameObject(parent),ground(-1)
+	:GameObject(parent),hModel_(-1)
 {
+	mapData_ = mapData;//ファイルグローバルのmapDataをコピーしてメンバ変数Mapdata_へ
 }
 
 void Ground::Initialize()
 {
-	ground = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
+	hModel_ = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
 
 	model_t = Model::Load("Block.fbx");
 	
@@ -40,14 +40,14 @@ void Ground::Update()
 
 void Ground::Draw()
 {
-	Model::SetTransform(ground, transform_);
-	Model::Draw(ground);
+	Model::SetTransform(hModel_, transform_);
+	Model::Draw(hModel_);
 
 	for (int j = 0;j < 10;j++)
 	{
 		for (int i = 0;i < 10;i++)
 		{
-			if (mapData[j][i] == 1)
+			if (mapData_[j][i] == 1)
 			{
 				Transform tr;
 				tr.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
