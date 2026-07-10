@@ -12,10 +12,10 @@ Ground::Ground(GameObject* parent)
 
 void Ground::Initialize()
 {
-	ground = Model::Load("masu.fbx");//1025だとうまく読み込めない可能性あり
+	ground = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
 
 	model_t = Model::Load("Block.fbx");
-
+	
 }
 
 void Ground::Update()
@@ -27,6 +27,8 @@ void Ground::Draw()
 	Model::SetTransform(ground, transform_);
 	Model::Draw(ground);
 
+	Transform tr;
+	tr.position_ = { 1.0f,0.0f,1.0f };
 	Model::SetTransform(model_t, transform_);
 	Model::Draw(model_t);
 }
