@@ -33,6 +33,9 @@ namespace
 	float turnStartAngle = 0.0f;//ŠJŽnŠp“x
 	float turnEndAngle = 0.0f;//I—¹Šp“x
 	PLAYER_DIRECTION turnEndDirection = PLAYER_DOWN;
+	float diff = 0.0f;//ŠJŽnŠp“x‚©‚çA–Ú•WŠp“x‚Ü‚Å‚Ì‰ñ“]—Êi‰½“x‰ñ“]‚·‚é‚©j
+	float halfangle = 180.0f;
+	float fullangle = 360.0f;
 
 }
 
@@ -129,7 +132,17 @@ void Player::Update()
 			{
 				t = 1.0f;//1.0‚ð’´‚¦‚È‚¢‚æ‚¤‚É‚·‚éi•ÛŒ¯j
 			}
-			angle = turnStartAngle + (turnEndAngle - turnStartAngle) * t;
+			//Å’Z•ûŒü‚É‰ñ“]‚·‚é‚æ‚¤‚ÉŠp“x·‚ð•â³B
+			diff = turnEndAngle - turnStartAngle;
+			if (diff > halfangle)
+			{
+				diff -= fullangle;
+			}
+			if (diff < -halfangle)
+			{
+				diff += fullangle;
+			}
+			angle = turnStartAngle + diff * t;//ŠJŽnŠp“x‚©‚ç‰ñ“]—Ê‚ð•ÛŠÇ—¦‚¾‚¯i‚ß‚½Œ»Ý‚ÌŠp“x‚ð‹‚ß‚é
 			transform_.rotate_.y = angle;
 
 			//30ƒtƒŒ[ƒ€Œo‰ß‚µ‚½‚ç‰ñ“]I—¹
