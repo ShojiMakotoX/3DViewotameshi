@@ -72,7 +72,7 @@ void Ground::Draw()
 	{
 		for (int i = 0;i < 10;i++)
 		{
-			if (objMap_[j][i] == 1||objMap_[j][i]==2)
+			if (mapData_[j][i] == 1)
 			{
 				Transform tr;
 				tr.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
