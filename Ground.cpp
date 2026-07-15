@@ -1,29 +1,45 @@
 #include "Ground.h"
 #include "Engine\\Model.h"
+#include "Engine\\CsvReader.h"
 namespace
 {
 	using std::vector;
 	int model_t = -1;
 
-	vector<vector<int>>mapData
+	/*vector<vector<int>>mapData
 	{
 		{1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
+		{1,1,0,1,0,0,0,0,1,1},
+		{1,0,0,0,0,0,1,0,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
+		{1,1,0,0,0,0,0,1,0,1},
 		{1,1,1,1,1,1,1,1,1,1},
-	};
+	};*/
 
 }
 Ground::Ground(GameObject* parent)
-	:GameObject(parent),hModel_(-1)
+	:GameObject(parent,"Ground"), hModel_(-1),mapWidth_(-1),mapHeight_(-1)
 {
-	mapData_ = mapData;//ファイルグローバルのmapDataをコピーしてメンバ変数Mapdata_へ
+	CsvReader csvData;
+	csvData.Load("map.csv");//CsVファイル読み込み
+
+	mapWidth_ = csvData.GetWidth();//列数を取得
+	mapHeight_ = csvData.GetHeight();//行数を取得
+
+
+	mapData_ = vector<vector<int>>(mapHeight_,vector<int>(mapWidth_,0));
+
+	for (int x = 0;x < mapWidth_;x++)
+	{
+		for (int y = 0;y < mapHeight_;y++)
+		{
+			mapData_[y][x] = csvData.GetValue(x, y);
+		}
+	}
 }
 
 void Ground::Initialize()
