@@ -23,7 +23,10 @@ public:
 	void Release() override;
 private:
 	int hModel_;
+	int hModelt_;
+	int hModeli_;
 	std::vector<std::vector<int>> mapData_;
+	std::vector < std::vector<int>>objMap_;
 	int mapWidth_;
 	int mapHeight_;
 };
