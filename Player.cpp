@@ -1,9 +1,10 @@
 #include "Player.h"
-#include "Engine/Model.h"
-#include "Engine/Debug.h"
+#include "Engine\\Model.h"
+#include "Engine\\Debug.h"
 #include "TestScene.h"
 #include "Engine\\Input.h"
 #include "Ground.h"
+#include "Engine\\SphereCollider.h"
 
 namespace
 {
@@ -56,7 +57,7 @@ namespace
 }
 
 Player::Player(GameObject* parent)
-	:GameObject(parent), hWalkModel_(-1),hIdleModel_(-1){
+	:GameObject(parent,"Player"), hWalkModel_(-1), hIdleModel_(-1) {
 	//swordDirには、初期方向として、ローカルモデルの剣の根っこから
 	//先端までのベクトルとして（0,1,0)を代入しておく
 	//初期位置は原点
@@ -70,6 +71,8 @@ void Player::Initialize()
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.5f);
+	AddCollider(collision);
 
 	if (ground_ != nullptr)
 	{
@@ -146,7 +149,7 @@ void Player::Update()
 			//angleを30フレーム使って新しいangleに切り替え
 			//古いものからちょっとずつ足してって…
 
-			turnFrame += 1.0f;
+			turnFrame += 1.5f;
 			float t = turnFrame / TURN_FRAME;//0から1.0
 
 			if (t > 1.0f)
@@ -190,7 +193,7 @@ void Player::Update()
 		//壁オブジェクトに食い込んでいたら戻す
 		gmap = ground_->GetMapData();//マップを取得
 		int mapX = (int)((wpos.x) + 10.0f) / 2;
-		int mapZ = (int)((10.0f-(wpos.z)) / 2);
+		int mapZ = (int)((10.0f-(wpos.z))) / 2;
 		
 		if (gmap[mapZ][mapX]==1)
 		{
@@ -209,11 +212,13 @@ void Player::Draw()
 
 	if (pstate == PLAYER_STATE::PLAYER_IDLE)
 	{
+		
 		Model::SetTransform(hIdleModel_, transform_);
 		Model::Draw(hIdleModel_);
 	}
 	else if (pstate == PLAYER_STATE::PLAYER_WALK|| pstate == PLAYER_STATE::PLAYER_TURN)
 	{
+		
 		Model::SetTransform(hWalkModel_, transform_);
 		Model::Draw(hWalkModel_);
 	}
@@ -227,4 +232,5 @@ void Player::Release()
 
 void Player::OnCollision(GameObject* pTarget)
 {
+	
 }

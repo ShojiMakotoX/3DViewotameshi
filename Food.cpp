@@ -70,7 +70,7 @@ void Food::SetFoodType(FoodType type)
 
 void Food::OnCollision(GameObject* pTarget)
 {
-	if (pTarget->GetObjectName() == "Food")
+	if (pTarget->GetObjectName() == "Player")
 	{
 		KillMe();
 	}
