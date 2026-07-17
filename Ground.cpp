@@ -6,7 +6,7 @@ namespace
 	using std::vector;
 	
 
-	/*vector<vector<int>>mapData
+	vector<vector<int>>mapData
 	{
 		{1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
@@ -18,7 +18,7 @@ namespace
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,1,0,0,0,0,0,1,0,1},
 		{1,1,1,1,1,1,1,1,1,1},
-	};*/
+	};
 
 }
 Ground::Ground(GameObject* parent)
@@ -28,10 +28,11 @@ Ground::Ground(GameObject* parent)
 	csvData.Load("map.csv");//CsVファイル読み込み
 
 	mapWidth_ = csvData.GetWidth();//列数を取得
-	mapHeight_ = csvData.GetHeight();//行数を取得
+	mapHeight_ = csvData.GetHeight()/2;//行数を取得
 
 
 	mapData_ = vector<vector<int>>(mapHeight_,vector<int>(mapWidth_,0));
+	objMap_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
 
 	for (int x = 0;x < mapWidth_;x++)
 	{
@@ -45,7 +46,7 @@ Ground::Ground(GameObject* parent)
 	{
 		for (int y = 0;y < mapHeight_;y++)
 		{
-			objMap_[y+mapHeight_-1][x] = csvData.GetValue(x, y+mapHeight_-1);
+			objMap_[y][x] = csvData.GetValue(x, y+mapHeight_);
 		}
 	}
 }
@@ -55,7 +56,8 @@ void Ground::Initialize()
 	hModel_ = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
 
 	hModelt_ = Model::Load("Block.fbx");
-	hModeli_ = Model::Load("item.fbx");
+	hModelesa_ = Model::Load("item.fbx");
+	hModelbigesa_ = Model::Load("bigitem.fbx");
 	
 }
 
@@ -79,7 +81,25 @@ void Ground::Draw()
 				Model::SetTransform(hModelt_, tr);
 				Model::Draw(hModelt_);
 			}
-			
+
+			if (objMap_[j][i] == 1)
+			{
+				Transform tr2;
+				tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
+				tr2.scale_ = { 1.5f,1.5f,1.5f };
+				Model::SetTransform(hModelesa_, tr2);
+				Model::Draw(hModelesa_);
+			}
+			else if (objMap_[j][i] == 2)
+			{
+				Transform tr2;
+				tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
+				tr2.scale_ = { 0.2f,0.2f,0.2f };
+				tr2.rotate_.y += 1.0f;
+				Model::SetTransform(hModelbigesa_, tr2);
+				Model::Draw(hModelbigesa_);
+			}
+
 		}
 	}
 }

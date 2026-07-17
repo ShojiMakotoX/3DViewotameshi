@@ -24,7 +24,9 @@ public:
 private:
 	int hModel_;
 	int hModelt_;
-	int hModeli_;
+	int hModelesa_;
+	int hModelbigesa_;
+
 	std::vector<std::vector<int>> mapData_;
 	std::vector < std::vector<int>>objMap_;
 	int mapWidth_;
