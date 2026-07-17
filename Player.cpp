@@ -66,7 +66,7 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 67, 1.0);
-	transform_.position_ = { 0.0f,0.0f,0.0f };
+	transform_.position_ = { 0.0f,0.5f,0.0f };
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
@@ -222,5 +222,9 @@ void Player::Draw()
 
 
 void Player::Release()
+{
+}
+
+void Player::OnCollision(GameObject* pTarget)
 {
 }

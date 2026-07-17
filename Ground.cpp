@@ -1,12 +1,13 @@
 #include "Ground.h"
 #include "Engine\\Model.h"
 #include "Engine\\CsvReader.h"
+#include "Food.h"
 namespace
 {
 	using std::vector;
 	
 
-	vector<vector<int>>mapData
+	/*vector<vector<int>>mapData
 	{
 		{1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
@@ -18,7 +19,7 @@ namespace
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,1,0,0,0,0,0,1,0,1},
 		{1,1,1,1,1,1,1,1,1,1},
-	};
+	};*/
 
 }
 Ground::Ground(GameObject* parent)
@@ -47,6 +48,19 @@ Ground::Ground(GameObject* parent)
 		for (int y = 0;y < mapHeight_;y++)
 		{
 			objMap_[y][x] = csvData.GetValue(x, y+mapHeight_);
+			if (objMap_[y][x] > 0)
+			{
+				Food* food = (Food*)Instantiate<Food>(this->GetParent());
+				food->SetPosition({ -9.0f + x * 2.0f ,0.0f,9.0f - y * 2.0f });
+				if (objMap_[y][x] == 1)
+				{
+					food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+				}
+				else if (objMap_[y][x] == 2)
+				{
+					food->SetFoodType(FoodType::FOODTYPE_POWER);
+				}
+			}
 		}
 	}
 }
@@ -54,10 +68,9 @@ Ground::Ground(GameObject* parent)
 void Ground::Initialize()
 {
 	hModel_ = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
-
 	hModelt_ = Model::Load("Block.fbx");
-	hModelesa_ = Model::Load("item.fbx");
-	hModelbigesa_ = Model::Load("bigitem.fbx");
+	/*hModelesa_ = Model::Load("item.fbx");
+	hModelbigesa_ = Model::Load("bigitem.fbx");*/
 	
 }
 
@@ -82,7 +95,7 @@ void Ground::Draw()
 				Model::Draw(hModelt_);
 			}
 
-			if (objMap_[j][i] == 1)
+			/*if (objMap_[j][i] == 1)
 			{
 				Transform tr2;
 				tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
@@ -98,7 +111,7 @@ void Ground::Draw()
 				tr2.rotate_.y += 1.0f;
 				Model::SetTransform(hModelbigesa_, tr2);
 				Model::Draw(hModelbigesa_);
-			}
+			}*/
 
 		}
 	}

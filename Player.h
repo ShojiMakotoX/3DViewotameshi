@@ -20,6 +20,7 @@ public:
 	//開放
 	void Release() override;
 	void SetGround(Ground* ground) { ground_ = ground; }
+	void OnCollision(GameObject* pTarget)override;
 private:
 	int hWalkModel_;//歩きアニメーションのモデルハンドル
 	int hIdleModel_;//待機アニメーションのモデルハンドル
