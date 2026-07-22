@@ -1,6 +1,8 @@
 #include "Food.h"
 #include "Engine\\Model.h"
 #include "Engine\\SphereCollider.h"
+#include "TestScene.h"
+#include "Ground.h"
 
 Food::Food(GameObject*parent)
 	:GameObject(parent,"Food"),type_(FOODTYPE_NORMAL),hModel_(-1),score_(0)
@@ -47,7 +49,7 @@ void Food::Release()
 {
 }
 
-void Food::SetFoodType(FoodType type)
+void Food::SetFoodType(FoodType type)//餌についての情報
 {
 	type_ = type;
 	if (type_ ==  FoodType::FOODTYPE_NORMAL)
@@ -64,12 +66,18 @@ void Food::SetFoodType(FoodType type)
 		AddCollider(collision);
 		hModel_ = Model::Load("bigitem.fbx");
 		transform_.scale_ = { 0.25f,0.25f,0.25f };
-		score_ = 5;
+		score_ =  5;
 	}
 }
 
-void Food::OnCollision(GameObject* pTarget)
+void Food::OnCollision(GameObject* pTarget)//餌と当たった時の反応
 {
+	TestScene* testScene = dynamic_cast<TestScene*>(GetParent()->GetParent());
+	testScene->AddScore(score_);//スコア加算
+	Ground* ground = dynamic_cast<Ground*>(FindObject("Ground"));
+	ground->DeleteEsa(esa_);//餌の数減らす
+	
+
 	if (pTarget->GetObjectName() == "Player")
 	{
 		KillMe();

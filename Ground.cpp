@@ -54,11 +54,14 @@ Ground::Ground(GameObject* parent)
 				food->SetPosition({ -9.0f + x * 2.0f ,0.0f,9.0f - y * 2.0f });
 				if (objMap_[y][x] == 1)
 				{
+					
 					food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+					esa_++;
 				}
 				else if (objMap_[y][x] == 2)
 				{
 					food->SetFoodType(FoodType::FOODTYPE_POWER);
+					esa_++;
 				}
 			}
 		}
@@ -120,3 +123,14 @@ void Ground::Draw()
 void Ground::Release()
 {
 }
+void Ground::DeleteEsa(int esa)
+{
+	esa_--;
+	
+}
+
+int Ground::GetEsaCount(int EsaCount) const
+{
+	return esa_;
+}
+
