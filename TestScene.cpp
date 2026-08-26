@@ -8,7 +8,7 @@
 namespace
 {
 	int myScore = 0;
-	int myEsa = 51;
+	int myEsa;
 }
 
 //コンストラクタ
@@ -24,6 +24,7 @@ void TestScene::Initialize()
 	Player*pPlayer = Instantiate <Player>(this);
 	Ground*pGround = Instantiate<Ground>(this);
 	pPlayer->SetGround(pGround);
+	myEsa = pGround->GetEsaCount();
 
 	Camera::SetPosition({ 0,10,-20 });
 	Camera::SetTarget({ 0,0,0 });
@@ -57,5 +58,11 @@ void TestScene::Release()
 void TestScene::AddScore(int score)
 {
 	myScore += score;
+}
+
+void TestScene::DeleteEsa(int esa)
+{
+	myEsa -= esa;
+	printf("myEsa = %d\n", myEsa);
 }
 

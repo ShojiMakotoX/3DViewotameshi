@@ -22,7 +22,7 @@ public:
 	//開放
 	void Release() override;
 	void DeleteEsa(int esa);
-	int GetEsaCount(int EsaCount)const;
+	int GetEsaCount()const;
 private:
 	int hModel_;
 	int hModelt_;
@@ -34,6 +34,7 @@ private:
 	int mapWidth_;
 	int mapHeight_;
 	int esa_;
+	int esaCount = 0;
 };
 
 

@@ -59,6 +59,7 @@ void Food::SetFoodType(FoodType type)//餌についての情報
 		hModel_ = Model::Load("item.fbx");
 		transform_.scale_ = { 1.5f,1.5f,1.5f };
 		score_ = 1;
+		
 	}
 	else if (type_ ==  FoodType::FOODTYPE_POWER)
 	{
@@ -67,6 +68,7 @@ void Food::SetFoodType(FoodType type)//餌についての情報
 		hModel_ = Model::Load("bigitem.fbx");
 		transform_.scale_ = { 0.25f,0.25f,0.25f };
 		score_ =  5;
+		
 	}
 }
 
@@ -74,8 +76,7 @@ void Food::OnCollision(GameObject* pTarget)//餌と当たった時の反応
 {
 	TestScene* testScene = dynamic_cast<TestScene*>(GetParent()->GetParent());
 	testScene->AddScore(score_);//スコア加算
-	Ground* ground = dynamic_cast<Ground*>(FindObject("Ground"));
-	ground->DeleteEsa(esa_);//餌の数減らす
+	testScene->DeleteEsa(esa_);//餌の数減らす
 	
 
 	if (pTarget->GetObjectName() == "Player")
