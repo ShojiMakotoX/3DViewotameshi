@@ -29,7 +29,7 @@ Ground::Ground(GameObject* parent)
 	csvData.Load("map.csv");//CsVファイル読み込み
 
 	mapWidth_ = csvData.GetWidth();//列数を取得
-	mapHeight_ = csvData.GetHeight()/2;//行数を取得
+	mapHeight_ = csvData.GetHeight();//行数を取得
 
 
 	mapData_ = vector<vector<int>>(mapHeight_,vector<int>(mapWidth_,0));
@@ -70,6 +70,7 @@ Ground::Ground(GameObject* parent)
 void Ground::Initialize()
 {
 	hModel_ = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
+	transform_.rotate_ = XMFLOAT3(-90.0f, 0.0f, 0.0f);
 	hModelt_ = Model::Load("Block.fbx");
 	/*hModelesa_ = Model::Load("item.fbx");
 	hModelbigesa_ = Model::Load("bigitem.fbx");*/
@@ -85,14 +86,14 @@ void Ground::Draw()
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 
-	for (int j = 0;j < 10;j++)
+	for (int j = 0;j < mapHeight_;j++)
 	{
-		for (int i = 0;i < 10;i++)
+		for (int i = 0;i < mapWidth_;i++)
 		{
 			if (mapData_[j][i] == 1)
 			{
 				Transform tr;
-				tr.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
+				tr.position_ = { -9.0f + i * 2.0f ,8.0f-j*2.0f,0.0f };//ブロック設置
 				Model::SetTransform(hModelt_, tr);
 				Model::Draw(hModelt_);
 			}
