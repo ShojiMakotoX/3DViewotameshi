@@ -5,6 +5,7 @@
 
 namespace
 {
+	
 	std::vector<std::vector<int>>gmap;
 	enum ENEMY_DIRECTION//敵の方向変換に必要そう
 	{
@@ -27,8 +28,10 @@ void Enemy::Initialize()
 {
 	hModel_ = Model::Load("Enemy.fbx");
 	Model::SetAnimFrame(hModel_, 0, 67, 1.0);
-	transform_.position_ = { 0.0f,1.0f,0.0f };
-	transform_.scale_ = { 0.5f,0.5f,0.5f };
+	transform_.position_ = { 4.0f,1.0f,1.0f };
+	transform_.scale_ = { 1.0f,1.0f,1.0f };
+
+	
 }
 
 void Enemy::Update()
@@ -46,9 +49,11 @@ void Enemy::Update()
 	XMFLOAT3 wpos = transform_.position_;
 
 	gmap = ground_->GetMapData();//マップを取得
-	int mapX = (int)((wpos.x) + 10.0f)/2;
-	int mapZ = (int)((10.0f - (wpos.z)))/2;
+	int mapX = (int)((wpos.x + 10.0f)/2.0f);
+	int mapZ = (int)((10.0f - wpos.z)/2.0f);
 
+	
+	
 	if (gmap[mapZ][mapX] == 1)
 	{
 		pos = pos - SPEED * move;
