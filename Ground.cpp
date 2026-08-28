@@ -47,7 +47,7 @@ Ground::Ground(GameObject* parent)
 	{
 		for (int y = 0;y < mapHeight_;y++)
 		{
-			objMap_[y][x] = csvData.GetValue(x, y+mapHeight_);
+			/*objMap_[y][x] = csvData.GetValue(x, y+mapHeight_);
 			if (objMap_[y][x] > 0)
 			{
 				Food* food = (Food*)Instantiate<Food>(this->GetParent());
@@ -62,7 +62,7 @@ Ground::Ground(GameObject* parent)
 					food->SetFoodType(FoodType::FOODTYPE_POWER);
 					esaCount++;
 				}
-			}
+			}*/
 		}
 	}
 }
