@@ -67,7 +67,7 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 67, 1.0);
-	transform_.position_ = { -2.0f,-6.0f,-3.0f };
+	transform_.position_ = { 0.0f,-6.0f,-3.0f };
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
@@ -191,15 +191,15 @@ void Player::Update()
 		XMFLOAT3 wpos = transform_.position_;
 
 		//壁オブジェクトに食い込んでいたら戻す
-		//gmap = ground_->GetMapData();//マップを取得
-		//int mapX = (int)((wpos.x + 10.0f) / 2);
-		//int mapZ = (int)((10.0f - wpos.z) / 2);
+		gmap = ground_->GetMapData();//マップを取得
+		int mapX = (int)((wpos.x + 10.0f) / 2);
+		int mapZ = (int)((10.0f - wpos.z) / 2);
 	
-		/*if (gmap[mapZ][mapX]==1)
+		if (gmap[mapZ][mapX]==1)
 		{
 			pos = pos - SPEED * move;
 			XMStoreFloat3(&transform_.position_, pos);
-		}*/
+		}
 
 }
 	
