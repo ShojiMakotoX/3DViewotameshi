@@ -43,7 +43,7 @@ Ground::Ground(GameObject* parent)
 
 
 	mapData_ = vector<vector<int>>(mapHeight_,vector<int>(mapWidth_,0));
-	objMap_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
+	//objMap_ = vector<vector<int>>(mapHeight_, vector<int>(mapWidth_, 0));
 
 	for (int x = 0;x < mapWidth_;x++)
 	{
@@ -81,7 +81,7 @@ Ground::Ground(GameObject* parent)
 void Ground::Initialize()
 {
 	hModel_ = Model::Load("masu2.fbx");//1025だとうまく読み込めない可能性あり
-	transform_.rotate_ = XMFLOAT3(-90.0f, 0.0f, 0.0f);
+	//transform_.rotate_ = XMFLOAT3(-90.0f, 0.0f, 0.0f);
 	hModelt_ = Model::Load("Block.fbx");
 	
 	/*hModelesa_ = Model::Load("item.fbx");
