@@ -3,7 +3,6 @@
 #include "Engine/Model.h"
 
 class Player;
-class Food;
 class Text;//前方宣言
 //テストシーンを管理するクラス
 class TestScene : public GameObject

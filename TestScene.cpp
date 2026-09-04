@@ -3,8 +3,6 @@
 #include "Ground.h"
 #include "Engine\\Camera.h"
 #include "Engine\\Text.h"
-#include "Food.h"
-#include "Enemy.h"
 
 namespace
 {
@@ -57,11 +55,9 @@ void TestScene::Update()
 void TestScene::Draw()
 {
 	std::string scrText;
-	std::string scrText2;
 	scrText = "SCORE:" + std::to_string(myScore);
-	scrText2 = "ESA:" + std::to_string(myEsa);
 	pText_->Draw(20, 20, scrText.c_str());
-	pText_->Draw(1000, 20, scrText2.c_str());
+	pText_->Draw(1000, 20, scrText.c_str());
 }
 //ŠJ•ú
 void TestScene::Release()

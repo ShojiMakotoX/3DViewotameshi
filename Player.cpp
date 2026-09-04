@@ -17,7 +17,9 @@ namespace
 	const float BLOCK_SIZE = 2.0f;
 	const XMFLOAT3 START_POS = { 15.0f,0.75f,0.5f };
 
-
+	const float JUMP = 0.2f;
+	const float GRAVITY = 0.01f;
+	const float AIR_CONTROL = 0.5f;
 
 	//enum
 	enum PLAYER_STATE
@@ -41,6 +43,11 @@ namespace
 	float turnStartAngle = 0.0f;//開始角度
 	float turnEndAngle = 0.0f;//終了角度
 	PLAYER_DIRECTION turnEndDirection = PLAYER_DOWN;
+	float currentSpeed = 0.0f;
+	float turnFrame = 0.0f;
+	float jumpVelocity = 0.0f;
+	bool isGrounded = true;
+	std::vector<std::vector<int>>gmap;
 
 	float P_ANGLE[4] = { 180.0f,0.0f,90.0f,270.0f };
 	XMVECTOR P_MOVE[4] = { XMVectorSet(0,0,1,0),XMVectorSet(0,0,-1,0),
@@ -49,11 +56,11 @@ namespace
 	//float TURN_FRAME = 30.0f;//回転にかかるフレーム数
 	float AdujustAngle(float angle)
 	{
-		if (angle>=180.0f)
+		if (angle >= 180.0f)
 		{
 			angle -= 360.0f;
 		}
-		else if (angle<-180.0f)
+		else if (angle < -180.0f)
 		{
 			angle += 360.0f;
 		}
@@ -62,9 +69,6 @@ namespace
 	//float diff = 0.0f;//開始角度から、目標角度までの回転量（何度回転するか）
 	//float halfangle = 180.0f;
 	//float fullangle = 360.0f;
-
-	std::vector<std::vector<int>>gmap;
-	
 
 }
 
@@ -85,12 +89,6 @@ void Player::Initialize()
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.5f);
 	AddCollider(collision);
-
-	if (ground_ != nullptr)
-	{
-		gmap = ground_->GetMapData();
-	}
-
 }
 
 void Player::Update()
