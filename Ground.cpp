@@ -1,7 +1,7 @@
 #include "Ground.h"
 #include "Engine\\Model.h"
 #include "Engine\\CsvReader.h"
-#include "Food.h"
+
 namespace
 {
 	using std::vector;
