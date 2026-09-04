@@ -15,20 +15,20 @@ Food::~Food()
 
 void Food::Initialize()
 {
-	
+	transform_.scale_ = { 0.3f,0.3f,0.3f };
 
-	///*if (type_ = FoodType::FOODTYPE_NORMAL)
-	//{
-	//	hModel_ = Model::Load("item.fbx");
-	//	transform_.scale_ = { 1.5f,1.5f,1.5f };
-	//	score_ = 1;
-	//}
-	//else if (type_ = FoodType::FOODTYPE_POWER)
-	//{
-	//	hModel_ = Model::Load("bigitem.fbx");
-	//	transform_.scale_ = { 0.2f,0.2f,0.2f };
-	//	score_ = 5;
-	//}*/
+	if (type_ = FoodType::FOODTYPE_NORMAL)
+	{
+		hModel_ = Model::Load("item.fbx");
+		transform_.scale_ = { 1.5f,1.5f,1.5f };
+		score_ = 1;
+	}
+	else if (type_ = FoodType::FOODTYPE_POWER)
+	{
+		hModel_ = Model::Load("bigitem.fbx");
+		transform_.scale_ = { 0.2f,0.2f,0.2f };
+		score_ = 5;
+	}
 }
 
 void Food::Update()

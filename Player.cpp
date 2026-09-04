@@ -13,9 +13,9 @@ namespace
 	const float ACCELE = 0.005f;
 	const float FRICT = 0.008f;
 	const float BRAKE = 0.02f;
-	const float TURN_FRAME = 30.0f;//回転にかかるフレーム数
+	const float TURN_FRAME = 10.0f;//回転にかかるフレーム数
 	const float BLOCK_SIZE = 2.0f;
-	const XMFLOAT3 START_POS = { 15.0f,0.75f,0.5f };
+	const XMFLOAT3 START_POS = { 15.0f,1.25f,0.5f };
 
 	const float JUMP = 0.2f;
 	const float GRAVITY = 0.01f;
@@ -83,7 +83,7 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 67, 1.0);
-	transform_.position_ = { 0.0f,-6.0f,-3.0f };
+	transform_.position_ = START_POS;
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);

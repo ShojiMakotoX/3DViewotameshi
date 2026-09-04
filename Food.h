@@ -26,7 +26,6 @@ private:
     FoodType type_;
     int hModel_;
     int score_;
-    int esa_ = 1;
-
+    int esa_;
 };
 

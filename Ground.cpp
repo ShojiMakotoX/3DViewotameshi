@@ -17,19 +17,7 @@ namespace
 	const float BLOCK_INTERVAL_Y = 1.0f;
 
 
-	/*vector<vector<int>>mapData
-	{
-		{1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,1,0,1,0,0,0,0,1,1},
-		{1,0,0,0,0,0,1,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,1,0,0,0,0,0,1,0,1},
-		{1,1,1,1,1,1,1,1,1,1},
-	};*/
+	
 
 }
 Ground::Ground(GameObject* parent)
@@ -39,7 +27,7 @@ Ground::Ground(GameObject* parent)
 	csvData.Load("map.csv");//CsVファイル読み込み
 
 	mapWidth_ = csvData.GetWidth();//列数を取得
-	mapHeight_ = csvData.GetHeight();//行数を取得
+	mapHeight_ = csvData.GetHeight()/2;//行数を取得
 
 
 	mapData_ = vector<vector<int>>(mapHeight_,vector<int>(mapWidth_,0));
