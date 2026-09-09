@@ -6,15 +6,7 @@ namespace
 {
 	using std::vector;
 
-	//地面についての情報
-	const float GROUND_WIDTH = 20.0f;
-	const float GROUND_Y = 10.0f;
-	const float GROUND_Z = 1.0f;
-	const float GROUND_ROTATE_X = -90.0f;
-
-	//ブロックについての情報
-	const float BLOCK_INTERVAL_X = 2.0f;
-	const float BLOCK_INTERVAL_Y = 1.0f;
+	
 
 
 	
@@ -83,13 +75,6 @@ void Ground::Update()
 
 void Ground::Draw()
 {
-	for (int i = 0;i < 3;i++)
-	{
-		transform_.position_ = { GROUND_WIDTH / 2.0f + GROUND_WIDTH * i,GROUND_Y,GROUND_Z };
-		transform_.rotate_ = { GROUND_ROTATE_X,0.0f,0.0f };
-		Model::SetTransform(hModel_, transform_);
-		Model::Draw(hModel_);
-	}
 	
 
 	for (int j = 0;j < mapHeight_;j++)
@@ -99,7 +84,7 @@ void Ground::Draw()
 			if (mapData_[j][i] == 1)
 			{
 				Transform tr;
-				tr.position_ = { i * BLOCK_INTERVAL_X,(mapHeight_ - 1 - j) * BLOCK_INTERVAL_Y,0.0f };//ブロック設置
+				tr.position_ = {-9.0f+i*2.0f,0.0f,9.0f-j*2.0f };//ブロック設置
 				Model::SetTransform(hModelt_, tr);
 				Model::Draw(hModelt_);
 			}
