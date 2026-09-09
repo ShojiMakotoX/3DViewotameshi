@@ -3,6 +3,7 @@
 #include "Ground.h"
 #include "Engine\\Camera.h"
 #include "Engine\\Text.h"
+#include "Enemy.h"
 
 namespace
 {
@@ -10,9 +11,6 @@ namespace
 	int myEsa;
 
 	Ground* pGround;
-	const int CAMERA_HEIGHT = 8.0f;
-	XMFLOAT3 START_POS = { 15.0f,0.75f,0.5f };
-	const float END_POS_X = 43.0f;
 }
 
 //コンストラクタ
@@ -25,15 +23,15 @@ TestScene::TestScene(GameObject * parent)
 void TestScene::Initialize()
 {	
 	//pWp = Instantiate<Weapon>(this);
-	pPlayer_ = Instantiate <Player>(this);
+	Player*pPlayer = Instantiate <Player>(this);
 	pGround = Instantiate<Ground>(this);
-	//Enemy* eEnemy = Instantiate<Enemy>(this);
+	Enemy* eEnemy = Instantiate<Enemy>(this);
 	pPlayer_->SetGround(pGround);
-	//eEnemy->SetGround(pGround);
-	//myEsa = pGround->GetEsaCount();
+	eEnemy->SetGround(pGround);
+	myEsa = pGround->GetEsaCount();
 
-	Camera::SetPosition({pPlayer_->GetPosition().x,pPlayer_->GetPosition().y+CAMERA_HEIGHT,-22});
-	Camera::SetTarget({ pPlayer_->GetPosition().x,pPlayer_->GetPosition().y + CAMERA_HEIGHT,0 });
+	Camera::SetPosition({0,10,20});
+	Camera::SetTarget({ 0,0,0});
 
 	pText_ = new Text;
 	pText_ -> Initialize();
@@ -43,12 +41,7 @@ void TestScene::Initialize()
 //更新
 void TestScene::Update()
 {
-	if (pPlayer_->GetPosition().x > START_POS.x && pPlayer_->GetPosition().x < END_POS_X)
-	{
-		Camera::SetPosition({ pPlayer_->GetPosition().x,pPlayer_->GetPosition().y + CAMERA_HEIGHT,-22 });
-		Camera::SetTarget({ pPlayer_->GetPosition().x,pPlayer_->GetPosition().y + CAMERA_HEIGHT,0 });
-
-	}
+	
 }
 
 //描画

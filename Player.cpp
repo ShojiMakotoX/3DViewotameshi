@@ -8,19 +8,6 @@
 
 namespace
 {
-	const float MAX_SPEED = 0.2f;
-	const float BASE_SPEED = 0.1f;
-	const float ACCELE = 0.005f;
-	const float FRICT = 0.008f;
-	const float BRAKE = 0.02f;
-	const float TURN_FRAME = 10.0f;//回転にかかるフレーム数
-	const float BLOCK_SIZE = 2.0f;
-	const XMFLOAT3 START_POS = { 15.0f,1.25f,0.5f };
-
-	const float JUMP = 0.2f;
-	const float GRAVITY = 0.01f;
-	const float AIR_CONTROL = 0.5f;
-
 	//enum
 	enum PLAYER_STATE
 	{
@@ -52,6 +39,7 @@ namespace
 	float P_ANGLE[4] = { 180.0f,0.0f,90.0f,270.0f };
 	XMVECTOR P_MOVE[4] = { XMVectorSet(0,0,1,0),XMVectorSet(0,0,-1,0),
 		XMVectorSet(-1,0,0,0),XMVectorSet(1,0,0,0) };
+	float TURN_FRAME = 10.0f;
 
 	//float TURN_FRAME = 30.0f;//回転にかかるフレーム数
 	float AdujustAngle(float angle)
@@ -83,7 +71,7 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 67, 1.0);
-	transform_.position_ = START_POS;
+	transform_.position_ = { 0.5f,0.0f,0.5f };
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
