@@ -12,7 +12,7 @@ Title::Title(GameObject* parent)
 void Title::Initialize()
 {
 	pText_ = new Text;
-	pText_->Initialize();
+	HRESULT result = pText_->Initialize();
 }
 
 void Title::Update()
@@ -33,4 +33,5 @@ void Title::Draw()
 
 void Title::Release()
 {
+	//pText_->Release();
 }

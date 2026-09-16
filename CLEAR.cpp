@@ -3,6 +3,7 @@
 #include "Engine\\SceneManager.h"
 
 CLEAR::CLEAR(GameObject* parent)
+	:GameObject(parent,"CLEAR")
 {
 }
 
@@ -14,7 +15,7 @@ void CLEAR::Initialize()
 
 void CLEAR::Update()
 {
-	if (Input::IsKey(DIK_SPACE))
+	if (Input::IsKey(DIK_R))
 	{
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_TITLE);
@@ -24,9 +25,10 @@ void CLEAR::Update()
 void CLEAR::Draw()
 {
 	pText_->Draw(550, 300, "EXCELLENT!\n");
-	pText_->Draw(500, 400, "Press Space Back to Title.\n");
+	pText_->Draw(500, 400, "Press Space R to Title.\n");
 }
 
 void CLEAR::Release()
 {
+	//pText_->Release();
 }

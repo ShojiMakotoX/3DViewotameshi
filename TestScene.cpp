@@ -64,7 +64,7 @@ void TestScene::Draw()
 //開放
 void TestScene::Release()
 {
-	pText_->Release();//テキスト開放
+	//pText_->Release();//テキスト開放
 }
 
 void TestScene::AddScore(int score)
