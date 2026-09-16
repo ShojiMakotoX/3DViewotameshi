@@ -86,23 +86,23 @@ void Ground::Draw()
 				Model::Draw(hModelt_);
 			}
 
-			//if (objMap_[j][i] == 1)
-			//{
-			//	Transform tr2;
-			//	tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
-			//	tr2.scale_ = { 1.5f,1.5f,1.5f };
-			//	Model::SetTransform(hModelesa_, tr2);
-			//	Model::Draw(hModelesa_);
-			//}
-			//else if (objMap_[j][i] == 2)
-			//{
-			//	Transform tr2;
-			//	tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
-			//	tr2.scale_ = { 0.2f,0.2f,0.2f };
-			//	tr2.rotate_.y += 1.0f;
-			//	Model::SetTransform(hModelbigesa_, tr2);
-			//	Model::Draw(hModelbigesa_);
-			//}
+			/*if (objMap_[j][i] == 1)
+			{
+				Transform tr2;
+				tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
+				tr2.scale_ = { 1.5f,1.5f,1.5f };
+				Model::SetTransform(hModelesa_, tr2);
+				Model::Draw(hModelesa_);
+			}
+			else if (objMap_[j][i] == 2)
+			{
+				Transform tr2;
+				tr2.position_ = { -9.0f + i * 2.0f ,0.0f,9.0f - j * 2.0f };
+				tr2.scale_ = { 0.2f,0.2f,0.2f };
+				tr2.rotate_.y += 1.0f;
+				Model::SetTransform(hModelbigesa_, tr2);
+				Model::Draw(hModelbigesa_);
+			}*/
 
 		}
 	}
