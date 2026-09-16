@@ -2,11 +2,11 @@
 #include "Engine\\GameObject.h"
 #include "Engine\\Text.h"
 
-class Title :
+class CLEAR :
     public GameObject
 {
 public:
-	Title(GameObject* parent);
+	CLEAR(GameObject* parent);
 	//初期化
 	void Initialize() override;
 	//更新
@@ -15,7 +15,7 @@ public:
 	void Draw() override;
 	//開放
 	void Release() override;
-	
+
 private:
 	Text* pText_;
 };

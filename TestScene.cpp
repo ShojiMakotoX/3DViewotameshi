@@ -5,7 +5,7 @@
 #include "Engine\\Text.h"
 #include "Enemy.h"
 #include "Food.h"
-
+#include "Engine\\SceneManager.h"
 
 namespace
 {
@@ -44,7 +44,11 @@ void TestScene::Initialize()
 //XV
 void TestScene::Update()
 {
-	
+	if (myEsa == 0)
+	{
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	}
 }
 
 //•`‰æ

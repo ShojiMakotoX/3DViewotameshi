@@ -71,4 +71,5 @@ void Food::OnCollision(GameObject* pTarget)//餌と当たった時の反応
 	
 		KillMe();
 	}
+	
 }

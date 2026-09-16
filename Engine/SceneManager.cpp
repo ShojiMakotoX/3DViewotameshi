@@ -2,6 +2,7 @@
 
 #include "../TestScene.h"
 #include "../Title.h"
+#include "../CLEAR.h"
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
@@ -20,7 +21,7 @@ void SceneManager::Initialize()
 	currentSceneID_ = SCENE_ID_TITLE;
 	nextSceneID_ = currentSceneID_;
 	Instantiate<Title>(this);
-	Instantiate<TestScene>(this);
+	//Instantiate<TestScene>(this);
 }
 
 //çXêV
@@ -42,7 +43,7 @@ void SceneManager::Update()
 		{
 		case SCENE_ID_TITLE:Instantiate<Title>(this);break;
 		case SCENE_ID_TEST: Instantiate<TestScene>(this); break;
-			
+		case SCENE_ID_CLEAR: Instantiate<CLEAR>(this);break;
 
 		}
 		Audio::Initialize();
