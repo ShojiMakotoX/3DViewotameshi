@@ -38,7 +38,7 @@ namespace
 	float P_ANGLE[4] = { 180.0f,0.0f,90.0f,270.0f };
 	XMVECTOR P_MOVE[4] = { XMVectorSet(0,0,1,0),XMVectorSet(0,0,-1,0),
 		XMVectorSet(-1,0,0,0),XMVectorSet(1,0,0,0) };
-	float TURN_FRAME = 10.0f;
+	
 
 	//float TURN_FRAME = 30.0f;//‰ñ“]‚É‚©‚©‚éƒtƒŒ[ƒ€”
 	float AdujustAngle(float angle)
