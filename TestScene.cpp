@@ -28,7 +28,7 @@ void TestScene::Initialize()
 	Player*pPlayer = Instantiate <Player>(this);
 	pGround = Instantiate<Ground>(this);
 	Enemy* eEnemy = Instantiate<Enemy>(this);
-	pPlayer_->SetGround(pGround);
+	pPlayer->SetGround(pGround);
 	eEnemy->SetGround(pGround);
 	myEsa = pGround->GetEsaCount();
 

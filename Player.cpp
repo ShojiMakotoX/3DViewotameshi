@@ -4,7 +4,6 @@
 #include "TestScene.h"
 #include "Engine\\Input.h"
 #include "Ground.h"
-#include "Engine\\SphereCollider.h"
 
 namespace
 {
@@ -60,7 +59,7 @@ namespace
 }
 
 Player::Player(GameObject* parent)
-	:GameObject(parent,"Player"), hWalkModel_(-1), hIdleModel_(-1) {
+	:GameObject(parent,"Player"), hWalkModel_(-1), hIdleModel_(-1) ,ground_(nullptr){
 	//swordDirには、初期方向として、ローカルモデルの剣の根っこから
 	//先端までのベクトルとして（0,1,0)を代入しておく
 	//初期位置は原点
