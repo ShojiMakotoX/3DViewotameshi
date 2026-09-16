@@ -70,11 +70,8 @@ void Ground::Update()
 
 void Ground::Draw()
 {
-	for (int i = 0;i < 3;i++)
-	{
-		Model::SetTransform(hModel_,transform_);
-		Model::Draw(hModel_);
-	}
+	Model::SetTransform(hModel_,transform_);
+	Model::Draw(hModel_);
 	
 
 	for (int j = 0;j < mapHeight_;j++)

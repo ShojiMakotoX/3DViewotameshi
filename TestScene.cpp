@@ -55,9 +55,11 @@ void TestScene::Update()
 void TestScene::Draw()
 {
 	std::string scrText;
+	std::string scrText2;
 	scrText = "SCORE:" + std::to_string(myScore);
 	pText_->Draw(20, 20, scrText.c_str());
-	pText_->Draw(1000, 20, scrText.c_str());
+	scrText2 = "Esa:" + std::to_string(myEsa);
+	pText_->Draw(1000, 20, scrText2.c_str());
 }
 //ŠJ•ú
 void TestScene::Release()
@@ -73,6 +75,5 @@ void TestScene::AddScore(int score)
 void TestScene::DeleteEsa(int esa)
 {
 	myEsa -= esa;
-	printf("myEsa = %d\n", myEsa);
 }
 
