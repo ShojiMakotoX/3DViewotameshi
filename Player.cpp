@@ -8,18 +8,6 @@
 
 namespace
 {
-	const float MAX_SPEED = 0.2f;
-	const float BASE_SPEED = 0.1f;
-	const float ACCELE = 0.005f;
-	const float FRICT = 0.008f;
-	const float BRAKE = 0.02f;
-	const float TURN_FRAME = 10.0f;//回転にかかるフレーム数
-	const float BLOCK_SIZE = 2.0f;
-	const XMFLOAT3 START_POS = { 15.0f,1.25f,0.5f };
-
-	const float JUMP = 0.2f;
-	const float GRAVITY = 0.01f;
-	const float AIR_CONTROL = 0.5f;
 
 	//enum
 	enum PLAYER_STATE
@@ -29,6 +17,7 @@ namespace
 		PLAYER_TURN,
 		PLAYER_STATE_MAX//状態の数
 	};
+	PLAYER_STATE pstate = PLAYER_STATE::PLAYER_IDLE;
 	enum PLAYER_DIRECTION
 	{
 		PLAYER_UP,
@@ -38,15 +27,12 @@ namespace
 		PLAYER_DIRECTION_MAX//方向の数
 	};
 
-	PLAYER_STATE pstate = PLAYER_STATE::PLAYER_IDLE;
+	float TURN_FRAME = 10.0f;
+
 	PLAYER_DIRECTION pdirection = PLAYER_DOWN;//プレイヤーの向きを管理する変数
 	float turnStartAngle = 0.0f;//開始角度
 	float turnEndAngle = 0.0f;//終了角度
 	PLAYER_DIRECTION turnEndDirection = PLAYER_DOWN;
-	float currentSpeed = 0.0f;
-	float turnFrame = 0.0f;
-	float jumpVelocity = 0.0f;
-	bool isGrounded = true;
 	std::vector<std::vector<int>>gmap;
 
 	float P_ANGLE[4] = { 180.0f,0.0f,90.0f,270.0f };
@@ -83,11 +69,11 @@ void Player::Initialize()
 {
 	hWalkModel_ = Model::Load("Walking.fbx");
 	Model::SetAnimFrame(hWalkModel_, 0, 67, 1.0);
-	transform_.position_ = START_POS;
+	transform_.position_ = { 0.5f,0.0,0.5f };
 
 	hIdleModel_ = Model::Load("Idle.fbx");
 	Model::SetAnimFrame(hIdleModel_, 0, 600, 1.0);
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 0.5f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.25, 0), 0.5f);
 	AddCollider(collision);
 }
 
