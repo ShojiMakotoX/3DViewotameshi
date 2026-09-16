@@ -25,7 +25,7 @@ TestScene::TestScene(GameObject * parent)
 void TestScene::Initialize()
 {	
 	//pWp = Instantiate<Weapon>(this);
-	pPlayer_ = Instantiate <Player>(this);
+	Player*pPlayer = Instantiate <Player>(this);
 	pGround = Instantiate<Ground>(this);
 	Enemy* eEnemy = Instantiate<Enemy>(this);
 	pPlayer_->SetGround(pGround);
