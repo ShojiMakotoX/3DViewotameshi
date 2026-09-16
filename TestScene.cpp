@@ -4,6 +4,7 @@
 #include "Engine\\Camera.h"
 #include "Engine\\Text.h"
 #include "Enemy.h"
+#include "Food.h"
 
 
 namespace
@@ -43,12 +44,7 @@ void TestScene::Initialize()
 //XV
 void TestScene::Update()
 {
-	/*if (pPlayer_->GetPosition().x > START_POS.x && pPlayer_->GetPosition().x < END_POS_X)
-	{
-		Camera::SetPosition({ pPlayer_->GetPosition().x,pPlayer_->GetPosition().y + CAMERA_HEIGHT,-22 });
-		Camera::SetTarget({ pPlayer_->GetPosition().x,pPlayer_->GetPosition().y + CAMERA_HEIGHT,0 });
-
-	}*/
+	
 }
 
 //•`‰æ

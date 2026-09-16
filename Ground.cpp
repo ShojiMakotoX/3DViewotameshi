@@ -113,7 +113,7 @@ void Ground::Release()
 }
 void Ground::DeleteEsa(int esa)
 {
-	esa_--;
+	esa--;
 	
 }
 

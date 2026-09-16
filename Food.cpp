@@ -63,13 +63,12 @@ void Food::SetFoodType(FoodType type)//餌についての情報
 
 void Food::OnCollision(GameObject* pTarget)//餌と当たった時の反応
 {
-	TestScene* testScene = dynamic_cast<TestScene*>(GetParent()->GetParent());
-	testScene->AddScore(score_);//スコア加算
-	testScene->DeleteEsa(esa_);//餌の数減らす
-	
-
 	if (pTarget->GetObjectName() == "Player")
 	{
+	TestScene* testScene = dynamic_cast<TestScene*>(GetParent()->GetParent());
+	testScene->AddScore(score_);//スコア加算
+	testScene->DeleteEsa(1);//餌の数減らす
+	
 		KillMe();
 	}
 }
