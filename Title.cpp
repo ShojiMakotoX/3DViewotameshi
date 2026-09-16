@@ -3,6 +3,7 @@
 #include "Engine\\SceneManager.h"
 
 
+
 Title::Title(GameObject* parent)
 	:GameObject(parent,"Title")
 {
@@ -22,6 +23,7 @@ void Title::Update()
 
 void Title::Draw()
 {
+	
 }
 
 void Title::Release()
